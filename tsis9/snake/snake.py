@@ -6,8 +6,8 @@ from random import randrange
 RES = 800
 SIZE = 50
 
-x, y = randrange(SIZE, RES - SIZE, SIZE), randrange(SIZE, RES - SIZE, SIZE)
-apple = randrange(SIZE, RES - SIZE, SIZE), randrange(SIZE, RES - SIZE, SIZE)
+x, y = randrange(1, 16) * 50, randrange(1, 16) * 50
+apple = randrange(1, 16) * 50, randrange(1, 16) * 50
 length = 1
 snake = [(x, y)]
 dx, dy = 0, 0
@@ -18,7 +18,7 @@ speed_count, snake_speed = 0, 10
 time = 5
 time_int = 5
 
-rand_apple_color = random.randint(1,3)
+rand_apple_color = random.randint(1, 3)
 
 pygame.init()
 surface = pygame.display.set_mode([RES, RES])
@@ -54,25 +54,27 @@ while True:
     time_int = int(time)
     if time_int == 0:
         time = 6
-        apple = randrange(SIZE, RES - SIZE, SIZE), randrange(SIZE, RES - SIZE, SIZE)
+        apple = randrange(1, 16) * 50, randrange(1, 16) * 50
 
     if not speed_count % snake_speed:
         x += dx * SIZE
         y += dy * SIZE
         snake.append((x, y))
         snake = snake[-length:]
+
     if snake[-1] == apple:
-        apple = randrange(SIZE, RES - SIZE, SIZE), randrange(SIZE, RES - SIZE, SIZE)
+        apple = randrange(1, 16) * 50, randrange(1, 16) * 50
         length += 1
         score += rand_apple_color
         snake_speed -= 1
         snake_speed = max(snake_speed, 4)
         rand_apple_color = random.randint(1, 3)
         time = 6
-    if x < 0 or x > RES - SIZE or y < 0 or y > RES - SIZE or len(snake) != len(set(snake)):
+
+    if x < 0 or x > 750 or y < 0 or y > 750 or len(snake) != len(set(snake)):
         while True:
             render_end = font_end.render('GAME OVER', 1, pygame.Color('orange'))
-            surface.blit(render_end, (RES // 2 - 200, RES // 3))
+            surface.blit(render_end, (250, 250))
             pygame.display.flip()
             close_game()
 
